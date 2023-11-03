@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+
+// Hover effect on image
+img{
+    max-width:100%;
+    
+    &:not(.no-grow){
+        transition: all .2s ease-in-out;
+        &:hover{
+            transform: scale(1.1);
+        }
+    }
+}
+
+body, html{
+    width:100%;
+    overflow:hidden;
+    overflow-y:scroll;
+}
+
+
+// Checkmarks for listing
+.usps{
+    li{
+        padding-left:24px;
+        position: relative;
+        &:before{
+            content: '';
+            width:17px;
+            height:13px;
+            left:-4px;
+            top:7px;
+            position: absolute;
+            background-image: url(../img/check.png);
+            background-repeat: no-repeat;
+            background-size:contain;
+            background-position: center center;
+        }
+    }
+}
+
+// Background images for hero{
+.hero-mockup{
+    &:before{
+        content: '';
+        position: absolute;
+        width: 430px;
+        height: 300px;
+        background-image: url(../img/hero-drawing-popcorn.png);
+        background-position: center center;
+        background-size:contain;
+        // License by Icon8. Find many other icons in this style via https://icons8.com/ouch/style/lime
+        background-repeat: no-repeat;
+        top:20%;
+        left:100px;
+        z-index: 1;
+
+        @media all and (max-width:768px) {
+            display:none;
+        }
+
+        @media all and (min-width:768px) and (max-width:1024px) {
+            width:calc(530px / 2);
+            height:calc(400px / 2);
+            background-size:cover;
+            margin-left:-90px;
+        }
+
+    }
+
+    &:after{
+        content: '';
+        position: absolute;
+        width: 450px;
+        height: 360px;
+        background-image: url(../img/hero-drawing-mail.png);
+        background-position: center center;
+        background-size:contain;
+        // License by Icon8. Find many other icons in this style via https://icons8.com/ouch/style/lime
+        background-repeat: no-repeat;
+        top:10%;
+        right:-50px;
+        z-index: 1;
+
+        @media all and (max-width:768px) {
+            display:none;
+        }
+
+        @media all and (min-width:768px) and (max-width:1024px) {
+            width:calc(570px / 2);
+            height:calc(430px / 2);
+            background-size:contain;
+            margin-left: -165px;
+        }
+    }
+}
+
+// Background images for feature block
+
+.feature-1{
+
+    img.lazy{
+        max-width:220px;
+        @media all and (max-width:990px) {
+            max-width:200px;
+        }
+    }
+    &:after{
+        content: '';
+        position: absolute;
+        width: 440px;
+        height: 345px;
+        background-image: url(../img/features-drawing-moonlanding.png);
+        // License by Icon8. Find many other icons in this style via https://icons8.com/ouch/style/lime
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size:contain;
+        top:30%;
+        left: 80px;
+        z-index: 1;
+
+        @media all and (max-width:990px) {
+            width:calc(100% - 40px);
+            height:calc(405px / 2);
+            background-size:contain;
+            margin-left: -60px;
+            top: 32%;
+        }
+
+        @media all and (min-width:991px) and (max-width:1024px) {
+            width:calc(100% - 40px);
+            height:calc(405px / 1.5);
+            background-size:contain;
+            margin-left:0;
+            left:0%;
+            top:30%;
+        }
+
+    }   
+}
+
+.feature-2{
+    &:after{
+        content: '';
+        position: absolute;
+        width: 450px;
+        height: 365px;
+        background-image: url(../img/features-drawing-buildings.png);
+        // License by Icon8. Find many other icons in this style via https://icons8.com/ouch/style/lime
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size:contain;
+        top:-70%;
+        left: 50px;
+        z-index: 1;
+
+        @media all and (max-width:990px) {
+            width:calc(100% - 40px);
+            height:calc(405px / 2);
+            background-size:contain;
+            margin-left:20px;
+            top:-40%;
+        }
+
+        @media all and (min-width:991px) and (max-width:1024px) {
+            width:calc(100% / 1.5);
+            height:calc(405px / 2);
+            background-size:contain;
+            margin-left:20px;
+            top:-60%;
+        }
+    } 
+}  
+
+.feature-3{
+    &:after{
+        content: '';
+        position: absolute;
+        width: 430px;
+        height: 323px;
+        background-image: url(../img/features-drawing-sunny.png);
+        // License by Icon8. Find many other icons in this style via https://icons8.com/ouch/style/lime
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size:contain;
+        top:10%;
+        left: -180px;
+        z-index: 1;
+
+        @media all and (max-width:990px) {
+            width:calc(100% - 40px);
+            height:calc(323px / 1.5);
+            background-size:contain;
+            margin-left:50px;
+            top:10%;
+            left:-45%;
+        }
+
+        @media all and (min-width:991px) and (max-width:1024px) {
+            width:calc(100% / 2);
+            height:calc(405px / 1.5);
+            background-size:contain;
+            margin-left:0;
+            left: -12%;
+            top: -70%;
+        }
+    } 
+}
+
+
+
+
+// Transitional loading of elements of page load
+@media (min-width:1024px){
+    .fade-in {
+        opacity:0;  /* make things invisible upon start */
+        -webkit-animation:fadeIn ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+        -moz-animation:fadeIn ease-in 1;
+        animation:fadeIn ease-in 1;
+
+        -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+        -moz-animation-fill-mode:forwards;
+        animation-fill-mode:forwards;
+
+        -webkit-animation-duration:0.5s;
+        -moz-animation-duration:0.5s;
+        animation-duration:0.5s;
+
+        &-first{
+            -webkit-animation-delay: 0.1s;
+            -moz-animation-delay: 0.1s;
+            animation-delay: 0.1s;
+        }
+
+        &-second{
+            -webkit-animation-delay: 0.5s;
+            -moz-animation-delay:0.5s;
+            animation-delay: 0.5s;
+        }
+
+        &-third{
+            -webkit-animation-delay: 0.75s;
+            -moz-animation-delay: 0.75s;
+            animation-delay: 0.75s;
+        }
+
+        &-fourth{
+            -webkit-animation-delay: 1s;
+            -moz-animation-delay: 1s;
+            animation-delay: 1s;
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+
+
+// Fixed menu on scrolling up
+.nav-section{
+    &.fixed-nav{
+        position: fixed;
+        width:100%;
+        background:#fff;
+        top:0px;
+        z-index:999;
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -2px rgba(0,0,0,.05);
+        transform: translateY(0);
+
+        @media all and (max-width:768px){
+            padding:8px 16px;
+        }
+    }
+}
+
+body{
+    &.fixed-nav{
+        margin-top:74px;
+        transition: none;
+    }
+}
+
+
+.testimonials{
+    img{
+        max-height:200px;
+    }
+}
