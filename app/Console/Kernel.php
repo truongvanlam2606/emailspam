@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -15,6 +16,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        Log::info('schedule start');
         // $schedule->command('inspire')->hourly();
         $schedule->command('queue:work --daemon --stop-when-empty --sleep=3 --tries=3 --max-time=36000')
             ->everyMinute()
