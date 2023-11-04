@@ -40,7 +40,8 @@ class EmailSendedDataTable extends DataTable
     public function query(EmailSended $model)
     {
         $query = $model->newQuery()
-                        ->select('id', 'email', 'status' , 'created_at');
+                        ->select('id', 'email', 'status' , 'created_at')
+                        ->latest();
         return $query;
     }
 

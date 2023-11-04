@@ -39,7 +39,8 @@ class EmailTemplateDataTable extends DataTable
     public function query(EmailTemplate $model)
     {
         $query = $model->newQuery()
-                        ->select('id', 'content', 'name' , 'created_at');
+                        ->select('id', 'content', 'name' , 'created_at')
+                        ->latest();
         return $query;
     }
 
