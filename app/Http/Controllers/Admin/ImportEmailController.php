@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\EmailSendedDataTable;
+use App\DataTables\ImportEmailDataTable;
 use App\Http\Controllers\Controller;
+use App\Jobs\ImportEmailJob;
 use App\Models\EmailTemplate;
 use App\Models\ImportEmail;
 use Illuminate\Http\Request;
@@ -26,7 +28,7 @@ class ImportEmailController extends Controller
         return view('admin.import-emails.index', compact('importEmails'));
     }
 
-    public function indexByDataTable(Request $request, EmailSendedDataTable $emailTemplateDataTable)
+    public function indexByDataTable(Request $request, ImportEmailDataTable $emailTemplateDataTable)
     {
         return $emailTemplateDataTable->ajax();
     }
@@ -59,17 +61,8 @@ class ImportEmailController extends Controller
             'status' => 1,
             'email_template_id' => $request->get('email_template_id'),
         ]);
+        ImportEmailJob::dispatch($importEmail);
 
-        if (!$importEmail) {
-            return response()->json([
-                'code' => 1,
-                'message' => 'Create error'
-            ]);
-        }
-
-        return response()->json([
-            'code' => 0,
-            'message' => 'Create emailTemplate success !'
-        ]);
+        return redirect()->route('admin.import-email.index');
     }
 }

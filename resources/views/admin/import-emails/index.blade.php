@@ -44,7 +44,7 @@
             $('.datatable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{!! route("admin.email-sended.datatables") !!}',
+                ajax: '{!! route("admin.import-email.datatables") !!}',
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'path_file', name: 'path_file' },

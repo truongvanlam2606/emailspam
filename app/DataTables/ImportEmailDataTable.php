@@ -21,12 +21,6 @@ class ImportEmailDataTable extends DataTable
 
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', function ($question) {
-                return '<a href="'. route('admin.email-template.edit', $question->id).'" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a> <a href="'. route('admin.email-template.delete', $question->id).'" data-id="'.$question->id.'" class="btn btn-sm btn-danger btn-delete actionDelete"><i class="fa fa-trash"></i></a>';
-            })
-            ->editColumn('created_at', function ($question) {
-                return $question->created_at ? $question->created_at->format('d-m-Y') : ' ';
-            })
             ->rawColumns(['action']);
     }
 
@@ -39,7 +33,7 @@ class ImportEmailDataTable extends DataTable
     public function query(ImportEmail $model)
     {
         $query = $model->newQuery()
-                        ->select('id', 'path_file', 'status', 'number_fail', 'number_success');
+                        ->select('id', 'path_file', 'status', 'number_faild', 'number_success');
         return $query;
     }
 

@@ -14,4 +14,9 @@ class ImportEmail extends Model
         'email_template_id', 'number_faild',
         'number_success',
     ];
+
+    public function emailTemplate()
+    {
+        return $this->belongsTo(EmailTemplate::class);
+    }
 }

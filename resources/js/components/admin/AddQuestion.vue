@@ -17,11 +17,17 @@
         <b-row>
             <b-col>
                 <label>Content: </label>
-                <quill-editor
+                <!-- <quill-editor
                     class="questions mb-4"
                     :options="editorOption"
                     v-model="question.content"
-                />
+                /> -->
+                <b-form-textarea
+                    id="textarea"
+                    v-model="question.content"
+                    rows="20"
+                >
+                </b-form-textarea>
             </b-col>
         </b-row>
 
@@ -174,14 +180,11 @@ export default {
                 });
         },
         addQuestion() {
-            console.log(this.question);
             this.isSubmitted = true;
             this.loading = true;
             const data = {
                 ...this.question,
             };
-
-            console.log(data)
             this.$http
                 .post("email-templates/store", data)
                 .then((res) => {
@@ -219,7 +222,10 @@ export default {
             this.isSubmitted = true;
             this.loading = true;
             this.$http
-                .post("email-templates/update/"+id, this.question)
+                .put("email-templates/"+this.question.id, {
+                    'content': this.question.content,
+                    'name': this.question.name,
+                })
                 .then((res) => {
                     this.loading = false;
                     this.isSubmitted = false;

@@ -39,6 +39,7 @@ Route::group([
         Route::get('/datatables','EmailTemplateController@indexByDataTable')->name('admin.email-template.datatables');
         Route::get('/','EmailTemplateController@index')->name('admin.email-template.index');
         Route::get('/{id}', 'EmailTemplateController@show')->name('admin.email-template.show');
+        Route::put('/{id}', 'EmailTemplateController@update')->name('admin.email-template.update');
         Route::post('/store', 'EmailTemplateController@store')->name('api.email-template.store');
         Route::get('/{id}/edit','EmailTemplateController@edit')->name('admin.email-template.edit');
         Route::get('/{id}/delete','EmailTemplateController@destroy')->name('admin.email-template.delete');
