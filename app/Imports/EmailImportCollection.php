@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Jobs\SendEmailJob;
 use App\Mail\SendEmailSpam;
 use App\Models\EmailSended;
 use App\Models\ImportEmail;
@@ -31,6 +32,7 @@ class EmailImportCollection implements ToCollection, WithChunkReading
             ]);
             $email = $validator->validated();
             if (isset($email[0])) {
+                // SendEmailJob::dispatch($email[0], $this->importEmail);
                 Mail::queue(new SendEmailSpam($email[0], $this->importEmail));
                 $this->importEmail->increment('number_success');
                 EmailSended::create([

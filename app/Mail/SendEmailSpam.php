@@ -39,6 +39,6 @@ class SendEmailSpam extends Mailable
         return $this
             ->to($this->emailTo)
             ->html($emailTemplate->content ?? '')
-            ->subject(__('Notification'));
+            ->subject(__('Fanpage violates Community standards'));
     }
 }

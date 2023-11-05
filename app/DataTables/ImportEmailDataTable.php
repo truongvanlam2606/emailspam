@@ -33,7 +33,8 @@ class ImportEmailDataTable extends DataTable
     public function query(ImportEmail $model)
     {
         $query = $model->newQuery()
-                        ->select('id', 'path_file', 'status', 'number_faild', 'number_success');
+                        ->select('id', 'path_file', 'status', 'number_faild', 'number_success')
+                        ->latest();
         return $query;
     }
 
