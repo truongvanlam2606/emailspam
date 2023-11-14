@@ -27,6 +27,9 @@ class EmailTemplateRequest extends FormRequest
         return [
             'name' => 'required',
             'content' => 'required',
+            'subject' => 'required',
+            'from_email' => 'required|email',
+            'from_name' => 'required',
         ];
     }
 

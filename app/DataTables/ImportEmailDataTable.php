@@ -21,7 +21,28 @@ class ImportEmailDataTable extends DataTable
 
         return datatables()
             ->eloquent($query)
-            ->rawColumns(['action']);
+            ->editColumn('status', function ($exam) {
+                if ($exam->status == 1) {
+                    return 'Chưa Tiến Hành';
+                } else if ($exam->status == 2) {
+                    return 'Đang Tiến Hành';
+                } else if ($exam->status == 3) {
+                    return 'Đã Tiến Hành';
+                } else {
+                    return 'Lỗi';
+                }
+            })
+            ->addColumn('action', function ($item) {
+                return '
+                <div>
+                    <form id="retry-'. $item->id .'" action="'. route('admin.import-email.retry', $item->id).'" method="post" style="">
+                        <input name="_method" type="hidden" value="post">
+                        <input type="hidden" name="_token" value="' . csrf_token().'">
+                        <button class="btn btn-sm btn-info" type="submit"> Thử lại </button>
+                    </form>
+                </div>
+                ';
+            });
     }
 
     /**
@@ -33,7 +54,7 @@ class ImportEmailDataTable extends DataTable
     public function query(ImportEmail $model)
     {
         $query = $model->newQuery()
-                        ->select('id', 'path_file', 'status', 'number_faild', 'number_success')
+                        ->select('id', 'path_file', 'status', 'number_faild', 'number_success', 'message', 'retry')
                         ->latest();
         return $query;
     }

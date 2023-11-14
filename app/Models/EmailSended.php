@@ -10,6 +10,6 @@ class EmailSended extends Model
     use HasFactory;
 
     protected $fillable = [
-        'email', 'status'
+        'email', 'status', 'message'
     ];
 }

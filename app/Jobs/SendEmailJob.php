@@ -3,14 +3,13 @@
 namespace App\Jobs;
 
 use App\Mail\SendEmailSpam;
+use App\Models\EmailSended;
 use App\Models\ImportEmail;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
 class SendEmailJob implements ShouldQueue
@@ -25,7 +24,7 @@ class SendEmailJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($email, ImportEmail $importEmail)
+    public function __construct(string $email, ImportEmail $importEmail)
     {
         $this->importEmail = $importEmail;
         $this->email = $email;
@@ -38,35 +37,19 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
-
-        $emails = [
-            'info@derm-innovative.com',
-        'info@dema-agency.ch',
-        'info@decision-makers.org',
-        'info@deca-properties.com',
-        'info@daiwasports.co.uk',
-        'info@da.org.za',
-        'info@cttlogistics.co.th',
-        'info@ctd.gr',
-        'info@csi-professionals.com',
-        'info@cs.maccosmetics.cl',
-        'info@crosscostaricamtb.com',
-        'info@crimestoppersgno.org',
-        'info@cottagerentalagency.com',
-        'info@cosmopolitan.de',
-        'info@corsamotor.com',
-        ];
-        foreach ($emails as $key => $value) {
-            $result = Mail::send(new SendEmailSpam($value, $this->importEmail));
-
+        try {
+            Mail::send(new SendEmailSpam($this->email, $this->importEmail));
+            $this->importEmail->increment('number_success');
+            EmailSended::create([
+                'email' => $this->email
+            ]);
+        } catch (\Throwable $th) {
+            EmailSended::create([
+                'email' => $this->email,
+                'message' => $th->getMessage(),
+                'status' => 2
+            ]);
+            $this->importEmail->increment('number_faild');
         }
-
-        // Mail::send([], [], function ($message) {
-        //     $message->to('evachm50m@hotmail.com')
-        //         ->subject('test')
-        //         ->setBody('Email testing');
-        // });
-
-        dd($result);
     }
 }

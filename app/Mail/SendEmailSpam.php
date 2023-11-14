@@ -34,11 +34,14 @@ class SendEmailSpam extends Mailable
     public function build()
     {
         $emailTemplate = $this->importEmail->emailTemplate;
+        $subject = $emailTemplate->subject ?? 'Fanpage violates Community standards';
+        $fromEmailAddress = $emailTemplate->from_email ?? 'fb@accountsupport.live';
+        $fromName = $emailTemplate->from_name ?? 'Verify Fanpage Facebook';
 
-        // dd($emailTemplate->content);
         return $this
+            ->from($fromEmailAddress, $fromName)
             ->to($this->emailTo)
             ->html($emailTemplate->content ?? '')
-            ->subject(__('Fanpage violates Community standards'));
+            ->subject($subject);
     }
 }

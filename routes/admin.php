@@ -55,6 +55,7 @@ Route::group([
         Route::get('/datatables','ImportEmailController@indexByDataTable')->name('admin.import-email.datatables');
         Route::get('/','ImportEmailController@index')->name('admin.import-email.index');
         Route::post('/','ImportEmailController@store')->name('admin.import-email.store');
+        Route::post('/{id}/retry','ImportEmailController@retry')->name('admin.import-email.retry');
     });
 
     // Files

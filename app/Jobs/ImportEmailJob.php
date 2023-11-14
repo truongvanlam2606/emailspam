@@ -34,11 +34,16 @@ class ImportEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        $file = $this->importEmail->path_file;
-        $pathFile = base_path($file);
-        Excel::import(new EmailImportCollection($this->importEmail), $pathFile);
-
-        $this->importEmail->status = 2;
-        $this->importEmail->save();
+        try {
+            $file = $this->importEmail->path_file;
+            $pathFile = base_path($file);
+            $this->importEmail->status = 2;
+            $this->importEmail->save();
+            Excel::import(new EmailImportCollection($this->importEmail), $pathFile);
+        } catch (\Throwable $th) {
+            $this->importEmail->status = 2;
+            $this->importEmail->message = $th->getMessage();
+            $this->importEmail->save();
+        }
     }
 }

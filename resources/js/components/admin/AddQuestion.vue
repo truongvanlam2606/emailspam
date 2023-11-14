@@ -15,6 +15,46 @@
             </b-col>
         </b-row>
         <b-row>
+            <b-col ref="subject">
+                <b-form-group
+                    label="Subject:"
+                    label-for="input-name"
+                >
+                    <b-form-input
+                        id="input-name"
+                        v-model="question.subject"
+                    ></b-form-input>
+                </b-form-group>
+            </b-col>
+        </b-row>
+                <b-row>
+            <b-col ref="from_email">
+                <b-form-group
+                    label="From Email:"
+                    label-for="input-name"
+                >
+                    <b-form-input
+                        id="input-name"
+                        v-model="question.from_email"
+                    ></b-form-input>
+                </b-form-group>
+            </b-col>
+        </b-row>
+        <b-row>
+            <b-col ref="from_name">
+                <b-form-group
+                    label="From Name:"
+                    label-for="input-name"
+                >
+                    <b-form-input
+                        id="input-name"
+                        v-model="question.from_name"
+                    ></b-form-input>
+                </b-form-group>
+            </b-col>
+        </b-row>
+
+        <b-row>
             <b-col>
                 <label>Content: </label>
                 <!-- <quill-editor
@@ -85,6 +125,9 @@ export default {
             default: () => ({
                 name: "",
                 content: "",
+                subject: "",
+                from_email: "",
+                from_name: "",
             })
         },
     },
@@ -225,6 +268,9 @@ export default {
                 .put("email-templates/"+this.question.id, {
                     'content': this.question.content,
                     'name': this.question.name,
+                    'subject': this.question.subject,
+                    'from_email': this.question.from_email,
+                    'from_name': this.question.from_name,
                 })
                 .then((res) => {
                     this.loading = false;

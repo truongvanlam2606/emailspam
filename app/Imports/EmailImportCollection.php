@@ -3,16 +3,15 @@
 namespace App\Imports;
 
 use App\Jobs\SendEmailJob;
-use App\Mail\SendEmailSpam;
-use App\Models\EmailSended;
 use App\Models\ImportEmail;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-class EmailImportCollection implements ToCollection, WithChunkReading
+class EmailImportCollection implements ToCollection, WithChunkReading, ShouldQueue
 {
     protected $importEmail;
 
@@ -25,22 +24,27 @@ class EmailImportCollection implements ToCollection, WithChunkReading
     */
     public function collection(Collection $collection)
     {
-        foreach ($collection as $emailInput) {
-            $emailInput = $emailInput->toArray();
-            $validator = Validator::make($emailInput, [
-                '*'=>'required|email'
-            ]);
-            $email = $validator->validated();
-            if (isset($email[0])) {
-                // SendEmailJob::dispatch($email[0], $this->importEmail);
-                Mail::queue(new SendEmailSpam($email[0], $this->importEmail));
-                $this->importEmail->increment('number_success');
-                EmailSended::create([
-                    'email' => $email[0]
+        try {
+            foreach ($collection as $emailInput) {
+                $emailInput = $emailInput->toArray();
+                $validator = Validator::make($emailInput, [
+                    '*'=>'required|email'
                 ]);
-            } else {
-                $this->importEmail->increment('number_faild');
+                $email = $validator->validated();
+                if (isset($email[0])) {
+                    SendEmailJob::dispatch($email[0], $this->importEmail);
+                }
             }
+
+            $this->importEmail->update([
+                'status' => 3
+            ]);
+
+        } catch (\Throwable $th) {
+            $this->importEmail->update([
+                'status' => 4,
+                'message' => $th->getMessage()
+            ]);
         }
     }
 

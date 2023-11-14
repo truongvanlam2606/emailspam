@@ -65,4 +65,23 @@ class ImportEmailController extends Controller
 
         return redirect()->route('admin.import-email.index');
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function retry($id)
+    {
+        $importEmail = ImportEmail::findOrFail($id);
+        $importEmail->retry += 1;
+        $importEmail->status = 1;
+        $importEmail->number_success = 0;
+        $importEmail->number_faild = 0;
+        $importEmail->save();
+        ImportEmailJob::dispatch($importEmail);
+
+        return redirect()->route('admin.import-email.index');
+    }
 }

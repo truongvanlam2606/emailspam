@@ -21,6 +21,7 @@
                         <th style="width: 20px">Id</th>
                         <th style="width: 150px">email</th>
                         <th>status</th>
+                        <th>message</th>
                     </tr>
                     </thead>
                 <tbody>
@@ -46,6 +47,7 @@
                     { data: 'id', name: 'id' },
                     { data: 'email', name: 'email' },
                     { data: 'status', name: 'status' },
+                    { data: 'message', name: 'message' },
                 ]
             });
         });

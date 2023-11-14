@@ -50,7 +50,8 @@ class TestEmail extends Command
 
         // SendEmailJob::dispatch('xxx', ImportEmail::find(1));
 
-        Mail::send(new SendEmailSpam('i2.tvl.97@gmail.com', $this->importEmail));
+        Mail::queue(new SendEmailSpam('i2.tvl.97@gmail.com', $this->importEmail));
+        Mail::queue(new SendEmailSpam('i2.tvl.97@gmail.com', $this->importEmail));
         // Mail::send(new SendEmailSpam('inre@interbills.online', $this->importEmail));
         // dd(123);
         // Mail::send([], [], function ($message) {

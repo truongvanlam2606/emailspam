@@ -22,8 +22,11 @@
                         <th style="width: 20px">Id</th>
                         <th style="width: 150px">path</th>
                         <th>status</th>
-                        <th>number faild</th>
-                        <th>number success</th>
+                        <th>Gửi thất bại</th>
+                        <th>Gửi thành công</th>
+                        <th>Số lần thử lại</th>
+                        <th>Message Lỗi</th>
+                        <th>Hành động</th>
                     </tr>
                     </thead>
                 <tbody>
@@ -51,9 +54,27 @@
                     { data: 'status', name: 'status' },
                     { data: 'number_faild', name: 'number_faild' },
                     { data: 'number_success', name: 'number_success' },
+                    { data: 'retry', name: 'retry' },
+                    { data: 'message', name: 'message' },
+                    { data: 'action', name: 'action' },
                 ]
             });
         });
+
+        jQuery( document ).ready(function() {
+            $(document).on('click', '.actionRetry', function(e) {
+                e.preventDefault();
+                var idForm = 'retry-' + $(this).attr('data-id');
+                console.log(idForm);
+                if (confirm('Are you sure ?')) {
+                    var form = document.getElementById(idForm);
+                    form.submit();
+                } else {
+                    return false;
+                }
+            });
+        });
+
     </script>
 
 @endpush

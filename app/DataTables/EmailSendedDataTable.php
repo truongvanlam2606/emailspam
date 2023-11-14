@@ -27,6 +27,8 @@ class EmailSendedDataTable extends DataTable
             })
             ->editColumn('created_at', function ($question) {
                 return $question->created_at ? $question->created_at->format('d-m-Y') : ' ';
+            })->editColumn('status', function ($question) {
+                return $question->status == 1 ? 'OK' : 'Thất bại';
             })
             ->rawColumns(['action']);
     }
@@ -40,7 +42,7 @@ class EmailSendedDataTable extends DataTable
     public function query(EmailSended $model)
     {
         $query = $model->newQuery()
-                        ->select('id', 'email', 'status' , 'created_at')
+                        ->select('id', 'email', 'status' , 'message', 'created_at')
                         ->latest();
         return $query;
     }

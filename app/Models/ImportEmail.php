@@ -13,6 +13,8 @@ class ImportEmail extends Model
         'path_file', 'status',
         'email_template_id', 'number_faild',
         'number_success',
+        'message',
+        'retry'
     ];
 
     public function emailTemplate()
