@@ -152,6 +152,15 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.smtp-email.index')}}" class="nav-link">
+                                <i class="nav-icon far fa-image"></i>
+                                <p>
+                                    SMTP Emails
+                                    <span class="badge badge-info right">{{$numberSmtpEmail ?? 0}}</span>
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

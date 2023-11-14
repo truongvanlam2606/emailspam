@@ -45,6 +45,17 @@ Route::group([
         Route::get('/{id}/delete','EmailTemplateController@destroy')->name('admin.email-template.delete');
     });
 
+    Route::group(['prefix' => 'smtp-emails'], function () {
+        Route::get('/create','SmtpEmailController@create')->name('admin.smtp-email.create');
+        Route::get('/datatables','SmtpEmailController@indexByDataTable')->name('admin.smtp-email.datatables');
+        Route::get('/','SmtpEmailController@index')->name('admin.smtp-email.index');
+        Route::get('/{id}', 'SmtpEmailController@show')->name('admin.smtp-email.show');
+        Route::put('/{id}', 'SmtpEmailController@update')->name('admin.smtp-email.update');
+        Route::post('/store', 'SmtpEmailController@store')->name('api.smtp-email.store');
+        Route::get('/{id}/edit','SmtpEmailController@edit')->name('admin.smtp-email.edit');
+        Route::get('/{id}/delete','SmtpEmailController@destroy')->name('admin.smtp-email.delete');
+    });
+
     Route::group(['prefix' => 'email-sendeds'], function () {
         Route::get('/datatables','EmailSendedController@indexByDataTable')->name('admin.email-sended.datatables');
         Route::get('/','EmailSendedController@index')->name('admin.email-sended.index');

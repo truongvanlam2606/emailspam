@@ -8,6 +8,7 @@ use App\Models\Exam;
 use App\Models\ImportEmail;
 use App\Models\JobImport;
 use App\Models\Question;
+use App\Models\SmtpEmail;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -66,10 +67,12 @@ class RouteServiceProvider extends ServiceProvider
             $numberEmailSended = EmailSended::count();
             $numberImportEmail = ImportEmail::count();
             $numberEmailTemplate = EmailTemplate::count();
+            $numberSmtpEmail = SmtpEmail::count();
             view()->share([
                 'numberEmailSended' => $numberEmailSended,
                 'numberImportEmail' => $numberImportEmail,
                 'numberEmailTemplate' => $numberEmailTemplate,
+                'numberSmtpEmail' => $numberSmtpEmail,
             ]);
 
         });
